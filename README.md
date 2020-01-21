@@ -1,4 +1,4 @@
 AFINO release version
 ===============
 
-Release version of the AFINO time series analysis code.
+Work-in-progress release version of the AFINO time series analysis code. NOT currently ready for distribution.
