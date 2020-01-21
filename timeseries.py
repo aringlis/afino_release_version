@@ -26,7 +26,7 @@ class SampleTimes:
         self.tdiff = self.time[1:] - self.time[0:-1]
 
         # Include base time for input series
-        self.basetime=time[0]
+        self.basetime = time[0]
 
 
 class Frequencies:
@@ -93,7 +93,7 @@ class TimeSeries:
 
 
 def prepend_left_bracket(s, bracket='(', force_replace=False,
-                          test_set=('(', '{', '[')):
+                         test_set=('(', '{', '[')):
     """Prepend a left bracket if possible"""
     if s[0] not in test_set:
         s = bracket + s
@@ -125,5 +125,5 @@ def bracketize(s, bracket='()', force_replace=False):
 
 def prepend_space(s, force_replace=False):
     s = prepend_left_bracket(s, bracket=' ', force_replace=force_replace,
-                              test_set=(' '))
+                             test_set=(' '))
     return s
