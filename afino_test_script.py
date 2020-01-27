@@ -1,7 +1,8 @@
+import os
 import analyse_generic_series
 from astropy.io import fits
 
-result = fits.open('/Users/ainglis/physics/afino_release_version/test_data/flare566801.fits')
+result = fits.open('test_data/flare566801.fits')
 hdu1 = result[1]
 flux = hdu1.data['flux']
 tt = hdu1.data['time']
