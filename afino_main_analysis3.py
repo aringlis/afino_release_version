@@ -1,6 +1,8 @@
 
 """
-Main analysis module for Bayesian MCMC Fourier spectrum fitting
+This routine initiates the AFINO analysis method for a particular chosen model.
+The fitting is done via SciPy, and the results, including best fit and associated
+BIC value, are stored in a dictionary and returned.
 """
 
 import numpy as np
