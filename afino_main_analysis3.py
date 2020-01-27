@@ -10,7 +10,7 @@ import copy
 import os
 import sys
 from timeseries import TimeSeries
-import rnspectralmodels3
+import afino_spectral_models
 import afino_model_fitting
 
 def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cutoff=None,
@@ -47,37 +47,37 @@ def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cuto
         #try 3 different fitting algorithms to ensure we maximize the likelihood
         for method in ['L-BFGS-B','TNC','SLSQP']:
             if model == 'single_power_law_with_constant':
-                res = afino_model_fitting.go_plaw(frequencies,iobs,rnspectralmodels3.power_law_with_constant,guess,method)
+                res = afino_model_fitting.go_plaw(frequencies,iobs,afino_spectral_models.power_law_with_constant,guess,method)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.power_law_with_constant)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.power_law_with_constant)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)               
 
                 
             elif model == 'splwc_AddNormalBump2':
-                res = afino_model_fitting.go_gauss(frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2,guess,method,overwrite_gauss_bounds = overwrite_gauss_bounds)
+                res = afino_model_fitting.go_gauss(frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2,guess,method,overwrite_gauss_bounds = overwrite_gauss_bounds)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
 
 
             elif model == 'broken_power_law_with_constant':
-                res = afino_model_fitting.go_bpow(frequencies,iobs,rnspectralmodels3.broken_power_law_with_constant,guess,method)
+                res = afino_model_fitting.go_bpow(frequencies,iobs,afino_spectral_models.broken_power_law_with_constant,guess,method)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.broken_power_law_with_constant)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.broken_power_law_with_constant)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
 
 
             elif model == 'splwc_AddNormalBump2_plus_extra_bump':
-                res = afino_model_fitting.go_gauss_plus_extra_bump(frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump,guess,method,
+                res = afino_model_fitting.go_gauss_plus_extra_bump(frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump,guess,method,
                                                                    overwrite_extra_gauss_bounds = overwrite_extra_gauss_bounds)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
@@ -88,17 +88,17 @@ def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cuto
 
     #calculate BIC and store best fit power spectrum and params
     if model == 'single_power_law_with_constant':
-        jack_bic = afino_model_fitting.BIC(2,best_param_vals,frequencies,iobs,rnspectralmodels3.power_law_with_constant,len(iobs))
-        best_fit_power_spectrum = rnspectralmodels3.power_law_with_constant(best_param_vals,frequencies)
+        jack_bic = afino_model_fitting.BIC(2,best_param_vals,frequencies,iobs,afino_spectral_models.power_law_with_constant,len(iobs))
+        best_fit_power_spectrum = afino_spectral_models.power_law_with_constant(best_param_vals,frequencies)
     elif model == 'splwc_AddNormalBump2':
-        jack_bic = afino_model_fitting.BIC(5,best_param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2,len(iobs))
-        best_fit_power_spectrum = rnspectralmodels3.splwc_AddNormalBump2(best_param_vals,frequencies)
+        jack_bic = afino_model_fitting.BIC(5,best_param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2,len(iobs))
+        best_fit_power_spectrum = afino_spectral_models.splwc_AddNormalBump2(best_param_vals,frequencies)
     elif model == 'broken_power_law_with_constant':
-        jack_bic = afino_model_fitting.BIC(4,best_param_vals,frequencies,iobs,rnspectralmodels3.broken_power_law_with_constant,len(iobs))
-        best_fit_power_spectrum = rnspectralmodels3.broken_power_law_with_constant(best_param_vals,frequencies)
+        jack_bic = afino_model_fitting.BIC(4,best_param_vals,frequencies,iobs,afino_spectral_models.broken_power_law_with_constant,len(iobs))
+        best_fit_power_spectrum = afino_spectral_models.broken_power_law_with_constant(best_param_vals,frequencies)
     elif model == 'splwc_AddNormalBump2_plus_extra_bump':
-        jack_bic = afino_model_fitting.BIC(8,best_param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump,len(iobs))
-        best_fit_power_spectrum = rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump(best_param_vals,frequencies)
+        jack_bic = afino_model_fitting.BIC(8,best_param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump,len(iobs))
+        best_fit_power_spectrum = afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump(best_param_vals,frequencies)
     best_fit_params = best_param_vals
 
 
