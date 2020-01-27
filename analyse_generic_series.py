@@ -1,16 +1,13 @@
 
 import sys
 import os
-
 import datetime
 import numpy as np
-from sunpy.time import parse_time
+
 from timeseries import TimeSeries
-from afino_main_analysis3 import main_analysis
 from afino_model_comparison import model_comparison
-#import rnspectralmodels3
 import afino_spectral_models
-from prep_series import prep_series
+from afino_prep_series import prep_series
 import matplotlib.pyplot as plt
 
 
