@@ -1,7 +1,7 @@
 import pickle
 import os
 import numpy as np
-from afino_main_analysis2 import main_analysis
+from afino_main_analysis3 import main_analysis
 
 
 def model_comparison(ts,description=None,generic=False,low_frequency_cutoff=None, overwrite_gauss_bounds = None):
