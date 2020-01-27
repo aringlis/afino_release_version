@@ -36,110 +36,73 @@ def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cuto
     best_lnlike = -999999.0
 
     # --------------------------------------------------------
-    if model == 'single_power_law_with_constant':
 
-        #don't have a good idea of starting guess parameters so randomize these and do multiple trials to cover more parameter space
-        for i in range(0,20):
 
-            #get randomized initial guess params to input into fit
-            guess = randomize_initial_guess(model = model)
+    #don't have a good idea of starting guess parameters so randomize these and do multiple trials to cover more parameter space
+    for i in range(0,20):
 
-            #try 3 different fitting algorithms to ensure we maximize the likelihood
-            for method in ['L-BFGS-B','TNC','SLSQP']:
+        #get randomized initial guess params to input into fit
+        guess = randomize_initial_guess(model = model)
+
+        #try 3 different fitting algorithms to ensure we maximize the likelihood
+        for method in ['L-BFGS-B','TNC','SLSQP']:
+            if model == 'single_power_law_with_constant':
                 res = afino_model_fitting.go_plaw(frequencies,iobs,rnspectralmodels3.power_law_with_constant,guess,method)
                 param_vals = res['x']
                 jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.power_law_with_constant)
-            
-
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
-                    best_param_vals = copy.deepcopy(param_vals)
+                    best_param_vals = copy.deepcopy(param_vals)               
 
-        #calculate BIC and store best fit power spectrum and params
-        jack_bic = afino_model_fitting.BIC(2,best_param_vals,frequencies,iobs,rnspectralmodels3.power_law_with_constant,len(iobs))
-        best_fit_power_spectrum = rnspectralmodels3.power_law_with_constant(best_param_vals,frequencies)
-        best_fit_params = best_param_vals
-            
-
-        
-    #-------------------------------------    
-    if model == 'splwc_AddNormalBump2':
-        
-        for i in range(0,20):
-
-            #get randomized initial guess params to input into fit
-            guess = randomize_initial_guess(model = model)
-
-            #try 3 different fitting algorithms to ensure we maximize the likelihood
-            for method in ['L-BFGS-B','TNC','SLSQP']:
+                
+            elif model == 'splwc_AddNormalBump2':
                 res = afino_model_fitting.go_gauss(frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2,guess,method,overwrite_gauss_bounds = overwrite_gauss_bounds)
                 param_vals = res['x']
                 jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2)
-
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
 
-        #calculate BIC and store best fit power spectrum and params
-        jack_bic = afino_model_fitting.BIC(5,best_param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2,len(iobs))
-        best_fit_power_spectrum = rnspectralmodels3.splwc_AddNormalBump2(best_param_vals,frequencies)
-        best_fit_params = best_param_vals
-          
-        
 
-    # --------------------------------------------------------
-    if model == 'broken_power_law_with_constant':
-
-        #don't have a good idea of starting guess parameters so randomize these and do multiple trials to cover more parameter space
-        for i in range(0,20):
-
-            #get randomized initial guess params to input into fit
-            guess = randomize_initial_guess(model = model)
-
-            #try 3 different fitting algorithms to ensure we maximize the likelihood
-            for method in ['L-BFGS-B','TNC','SLSQP']:
+            elif model == 'broken_power_law_with_constant':
                 res = afino_model_fitting.go_bpow(frequencies,iobs,rnspectralmodels3.broken_power_law_with_constant,guess,method)
                 param_vals = res['x']
                 jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.broken_power_law_with_constant)
-
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
 
-        #calculate BIC and store best fit power spectrum and params
+
+            elif model == 'splwc_AddNormalBump2_plus_extra_bump':
+                res = afino_model_fitting.go_gauss_plus_extra_bump(frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump,guess,method,
+                                                                   overwrite_extra_gauss_bounds = overwrite_extra_gauss_bounds)
+                param_vals = res['x']
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump)
+                if jack_lnlike > best_lnlike:
+                    best_lnlike = copy.deepcopy(jack_lnlike)
+                    best_param_vals = copy.deepcopy(param_vals)
+                
+            else:
+                raise ValueError
+            
+
+    #calculate BIC and store best fit power spectrum and params
+    if model == 'single_power_law_with_constant':
+        jack_bic = afino_model_fitting.BIC(2,best_param_vals,frequencies,iobs,rnspectralmodels3.power_law_with_constant,len(iobs))
+        best_fit_power_spectrum = rnspectralmodels3.power_law_with_constant(best_param_vals,frequencies)
+        best_fit_params = best_param_vals
+    elif model == 'splwc_AddNormalBump2':
+        jack_bic = afino_model_fitting.BIC(5,best_param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2,len(iobs))
+        best_fit_power_spectrum = rnspectralmodels3.splwc_AddNormalBump2(best_param_vals,frequencies)
+        best_fit_params = best_param_vals
+    elif model == 'broken_power_law_with_constant':
         jack_bic = afino_model_fitting.BIC(4,best_param_vals,frequencies,iobs,rnspectralmodels3.broken_power_law_with_constant,len(iobs))
         best_fit_power_spectrum = rnspectralmodels3.broken_power_law_with_constant(best_param_vals,frequencies)
         best_fit_params = best_param_vals
-
-                    
-
-    # add additional models as needed here
-    #-------------------------------------
-    
-    #------------------------------------------------------------
-    if model == 'splwc_AddNormalBump2_plus_extra_bump':
-
-        #don't have a good idea of starting guess parameters so randomize these and do multiple trials to cover more parameter space
-        for i in range(0,20):
-
-            #get randomized initial guess params to input into fit
-            guess = randomize_initial_guess_plus_extra_bump()
-
-            #try 3 different fitting algorithms to ensure we maximize the likelihood
-            for method in ['L-BFGS-B','TNC','SLSQP']:
-                res = afino_model_fitting.go_gauss_plus_extra_bump(frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump,guess,method, overwrite_extra_gauss_bounds = overwrite_extra_gauss_bounds)
-                param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump)
-
-                if jack_lnlike > best_lnlike:
-                    best_lnlike = copy.deepcopy(jack_lnlike)
-                    best_param_vals = copy.deepcopy(param_vals)
-
-        #calculate BIC and store best fit power spectrum and params
+    elif model == 'splwc_AddNormalBump2_plus_extra_bump':
         jack_bic = afino_model_fitting.BIC(8,best_param_vals,frequencies,iobs,rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump,len(iobs))
         best_fit_power_spectrum = rnspectralmodels3.splwc_AddNormalBump2_plus_extra_bump(best_param_vals,frequencies)
         best_fit_params = best_param_vals
-
 
 
     #----------------------------------------
