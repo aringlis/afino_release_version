@@ -7,9 +7,6 @@ BIC value, are stored in a dictionary and returned.
 
 import numpy as np
 import copy
-import os
-import sys
-from afino_series import AfinoSeries
 import afino_spectral_models
 import afino_model_fitting
 

@@ -5,13 +5,9 @@ Main analysis module for Bayesian MCMC Fourier spectrum fitting
 
 import numpy as np
 import copy
-import os
-import sys
-from matplotlib import pyplot as plt
-from afino_series import AfinoSeries
 import rnspectralmodels3
 import afino_model_fitting
-import pickle
+
 
 def main_analysis(ts,model='single_power_law_with_constant',low_frequency_cutoff=None,overwrite_gauss_bounds = None, overwrite_extra_gauss_bounds = None):
 

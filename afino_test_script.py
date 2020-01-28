@@ -1,4 +1,4 @@
-import os
+
 import analyse_generic_series
 from astropy.io import fits
 
