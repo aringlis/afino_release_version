@@ -65,7 +65,7 @@ class PowerSpectrum:
         plt.plot(self.frequencies.positive, self.ppower, **kwargs)
 
 
-class TimeSeries:
+class AfinoSeries:
     def __init__(self, time, data, label='data', units=None, name=None):
         self.SampleTimes = SampleTimes(time)
         if self.SampleTimes.nt != data.size:

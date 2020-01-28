@@ -1,5 +1,5 @@
 import numpy as np
-from timeseries import TimeSeries
+from afino_series import AfinoSeries
 
 
 def prep_series(ts):
@@ -9,5 +9,5 @@ def prep_series(ts):
     data_ave = np.mean(ts.data)
     newdata = ((ts.data - data_ave) / data_ave) * np.hanning(len(ts.data))
 
-    ts_hann = TimeSeries(ts.SampleTimes.time + ts.SampleTimes.basetime, newdata)
+    ts_hann = AfinoSeries(ts.SampleTimes.time + ts.SampleTimes.basetime, newdata)
     return ts_hann

@@ -4,7 +4,7 @@ import os
 import datetime
 import numpy as np
 
-from timeseries import TimeSeries
+from afino_series import AfinoSeries
 from afino_model_comparison import model_comparison
 import afino_spectral_models
 from afino_prep_series import prep_series
@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 def analyse_series(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None):
     '''Analyse a single, generic timeseries using the AFINO model comparison code.'''
 
-    ts = TimeSeries(times,flux)
+    ts = AfinoSeries(times,flux)
     #first need to apply a window function 
     sig_apodized=prep_series(ts)
     #now perform model comparison
@@ -31,7 +31,7 @@ def analyse_series(times, flux, description=None, low_frequency_cutoff=None, sav
 def analyse_series_twobump(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None, overwrite_extra_gauss_bounds = None):
     '''Analyse a single, generic timeseries using the AFINO model comparison code., with extra models'''
 
-    ts = TimeSeries(times,flux)
+    ts = AfinoSeries(times,flux)
     #first need to multiply by window function before input into the MCMC
     sig_apodized=prep_series(ts)
     #now perform model comparison

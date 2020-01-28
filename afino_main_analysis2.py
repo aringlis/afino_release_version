@@ -8,7 +8,7 @@ import copy
 import os
 import sys
 from matplotlib import pyplot as plt
-from timeseries import TimeSeries
+from afino_series import AfinoSeries
 import rnspectralmodels3
 import afino_model_fitting
 import pickle
