@@ -2,17 +2,29 @@ import pickle
 import os
 import numpy as np
 from afino_main_analysis3 import main_analysis
+from afino_utils import model_string_from_id
 
+def model_comparison(ts,description=None,generic=False,low_frequency_cutoff=None, overwrite_gauss_bounds = None, model_ids = [0,1,2]):
 
-def model_comparison(ts,description=None,generic=False,low_frequency_cutoff=None, overwrite_gauss_bounds = None):
-
-
-    m0 = main_analysis(ts, model='single_power_law_with_constant',low_frequency_cutoff=low_frequency_cutoff)
+    results = []
+    for id in model_ids:
+        model_string = model_string_from_id(id)
+        result = main_analysis(ts, model=model_string, low_frequency_cutoff = low_frequency_cutoff, overwrite_gauss_bounds = overwrite_gauss_bounds)
+        results.append(result)
+    
+        
+    
+   # m0 = main_analysis(ts, model='single_power_law_with_constant',low_frequency_cutoff=low_frequency_cutoff)
   
-    m1 = main_analysis(ts, model='splwc_AddNormalBump2',low_frequency_cutoff=low_frequency_cutoff, overwrite_gauss_bounds = overwrite_gauss_bounds)
+   # m1 = main_analysis(ts, model='splwc_AddNormalBump2',low_frequency_cutoff=low_frequency_cutoff, overwrite_gauss_bounds = overwrite_gauss_bounds)
 
-    m2 = main_analysis(ts, model='broken_power_law_with_constant',low_frequency_cutoff=low_frequency_cutoff)
+   # m2 = main_analysis(ts, model='broken_power_law_with_constant',low_frequency_cutoff=low_frequency_cutoff)
 
+   #just for testing
+    m0 = results[0]
+    m1 = results[1]
+    m2 = results[2]
+        
     #parse everything into one dictionary
 
     dBIC_0v1 = m0['BIC'] - m1['BIC']
