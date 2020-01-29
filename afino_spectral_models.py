@@ -33,7 +33,7 @@ def constant(a):
 # ----------------------------------------------------------------------------
 # Power law
 #
-def power_law(a, f):
+def pow(a, f):
     """Simple power law.  This model assumes that the power
     spectrum is made up of a power law at all frequencies.
     Parameters
@@ -50,7 +50,7 @@ def power_law(a, f):
 # ----------------------------------------------------------------------------
 # Broken Power law
 #
-def broken_power_law(a, f):
+def bpow(a, f):
     """Broken power law.  This model assumes that there is a break in the power
     spectrum at some given frequency.
     Parameters
@@ -113,7 +113,7 @@ def sum_of_pulses_with_constant(a, f):
 # ----------------------------------------------------------------------------
 # Broken Power law with Constant
 #
-def bpow(a, f):
+def bpow_const(a, f):
     """Broken power law with constant.  This model assumes that there is a
     break in the power spectrum at some given frequency.  At high
     frequencies the power spectrum is dominated by the constant background.
@@ -128,7 +128,7 @@ def bpow(a, f):
     f : ndarray
         frequencies
     """
-    return broken_power_law(a[0:4], f) + constant(a[4])
+    return bpow(a[0:4], f) + constant(a[4])
 
 
 def broken_power_law_with_constant_plus_extra_bump(a, f):
@@ -161,7 +161,7 @@ def broken_power_law_with_constant_with_lognormal(a, f):
 # ----------------------------------------------------------------------------
 # Power law with constant
 #
-def pow(a, f):
+def pow_const(a, f):
     """Power law with a constant.  This model assumes that the power
     spectrum is made up of a power law and a constant background.  At high
     frequencies the power spectrum is dominated by the constant background.
@@ -174,7 +174,7 @@ def pow(a, f):
     f : ndarray
         frequencies
     """
-    return power_law(a[0:2], f) + constant(a[2])
+    return pow(a[0:2], f) + constant(a[2])
 
 
 # Lognormal
@@ -231,7 +231,7 @@ def NormalBump2(x, a):
     norm = 1.0 / (np.sqrt(2 * np.pi * a[2] ** 2))
     return amplitude * norm * np.exp(-0.5 * z ** 2)
 
-def pow_gauss(a, f):
+def pow_const_gauss(a, f):
     """Simple power law with a constant, plus a Gaussian shaped bump.
     This model assumes that the powe spectrum is made up of a power law and a
     constant background.  At high frequencies the power spectrum is dominated
@@ -247,10 +247,10 @@ def pow_gauss(a, f):
         a[1] : the power law index
         a[2] : the natural logarithm of the constant background
     """
-    return pow(a[0:3], f) + NormalBump2(np.log(f), a[3:6])
+    return pow_const(a[0:3], f) + NormalBump2(np.log(f), a[3:6])
 
 
-def pow_2gauss(a,f):
+def pow_const_2gauss(a,f):
     """Simple power law with a constant, plus a Gaussian bump, and a second Gaussian bump.
     The second bump is implemented to account for a persistent signal in the data, such as a spin period.
 
@@ -271,6 +271,6 @@ def pow_2gauss(a,f):
         a[8] : the width of the second bump
     """
         
-    return pow(a[0:3], f) + NormalBump2(np.log(f), a[3:6]) + NormalBump2(np.log(f), a[6:9])
+    return pow_const(a[0:3], f) + NormalBump2(np.log(f), a[3:6]) + NormalBump2(np.log(f), a[6:9])
 
     
