@@ -10,7 +10,7 @@ import copy
 import afino_spectral_models
 import afino_model_fitting
 
-def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cutoff=None,
+def main_analysis(ts, model='pow', low_frequency_cutoff=None,
                       overwrite_gauss_bounds = None, overwrite_extra_gauss_bounds = None):
 
 
@@ -43,38 +43,38 @@ def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cuto
 
         #try 3 different fitting algorithms to ensure we maximize the likelihood
         for method in ['L-BFGS-B','TNC','SLSQP']:
-            if model == 'single_power_law_with_constant':
-                res = afino_model_fitting.go_plaw(frequencies,iobs,afino_spectral_models.power_law_with_constant,guess,method)
+            if model == 'pow':
+                res = afino_model_fitting.go_plaw(frequencies,iobs,afino_spectral_models.pow,guess,method)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.power_law_with_constant)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.pow)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)               
 
                 
-            elif model == 'splwc_AddNormalBump2':
-                res = afino_model_fitting.go_gauss(frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2,guess,method,overwrite_gauss_bounds = overwrite_gauss_bounds)
+            elif model == 'pow_gauss':
+                res = afino_model_fitting.go_gauss(frequencies,iobs,afino_spectral_models.pow_gauss,guess,method,overwrite_gauss_bounds = overwrite_gauss_bounds)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.pow_gauss)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
 
 
-            elif model == 'broken_power_law_with_constant':
-                res = afino_model_fitting.go_bpow(frequencies,iobs,afino_spectral_models.broken_power_law_with_constant,guess,method)
+            elif model == 'bpow':
+                res = afino_model_fitting.go_bpow(frequencies,iobs,afino_spectral_models.bpow,guess,method)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.broken_power_law_with_constant)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.bpow)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
 
 
-            elif model == 'splwc_AddNormalBump2_plus_extra_bump':
-                res = afino_model_fitting.go_gauss_plus_extra_bump(frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump,guess,method,
+            elif model == 'pow_2gauss':
+                res = afino_model_fitting.go_gauss_plus_extra_bump(frequencies,iobs,afino_spectral_models.pow_2gauss,guess,method,
                                                                    overwrite_extra_gauss_bounds = overwrite_extra_gauss_bounds)
                 param_vals = res['x']
-                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump)
+                jack_lnlike = afino_model_fitting.lnlike(param_vals,frequencies,iobs,afino_spectral_models.pow_2gauss)
                 if jack_lnlike > best_lnlike:
                     best_lnlike = copy.deepcopy(jack_lnlike)
                     best_param_vals = copy.deepcopy(param_vals)
@@ -84,18 +84,18 @@ def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cuto
             
 
     #calculate BIC and store best fit power spectrum and params
-    if model == 'single_power_law_with_constant':
-        jack_bic = afino_model_fitting.BIC(2,best_param_vals,frequencies,iobs,afino_spectral_models.power_law_with_constant,len(iobs))
-        best_fit_power_spectrum = afino_spectral_models.power_law_with_constant(best_param_vals,frequencies)
-    elif model == 'splwc_AddNormalBump2':
-        jack_bic = afino_model_fitting.BIC(5,best_param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2,len(iobs))
-        best_fit_power_spectrum = afino_spectral_models.splwc_AddNormalBump2(best_param_vals,frequencies)
-    elif model == 'broken_power_law_with_constant':
-        jack_bic = afino_model_fitting.BIC(4,best_param_vals,frequencies,iobs,afino_spectral_models.broken_power_law_with_constant,len(iobs))
-        best_fit_power_spectrum = afino_spectral_models.broken_power_law_with_constant(best_param_vals,frequencies)
-    elif model == 'splwc_AddNormalBump2_plus_extra_bump':
+    if model == 'pow':
+        jack_bic = afino_model_fitting.BIC(2,best_param_vals,frequencies,iobs,afino_spectral_models.pow,len(iobs))
+        best_fit_power_spectrum = afino_spectral_models.pow(best_param_vals,frequencies)
+    elif model == 'pow_gauss':
+        jack_bic = afino_model_fitting.BIC(5,best_param_vals,frequencies,iobs,afino_spectral_models.pow_gauss,len(iobs))
+        best_fit_power_spectrum = afino_spectral_models.pow_gauss(best_param_vals,frequencies)
+    elif model == 'bpow':
+        jack_bic = afino_model_fitting.BIC(4,best_param_vals,frequencies,iobs,afino_spectral_models.bpow,len(iobs))
+        best_fit_power_spectrum = afino_spectral_models.bpow(best_param_vals,frequencies)
+    elif model == 'pow_2gauss':
         jack_bic = afino_model_fitting.BIC(8,best_param_vals,frequencies,iobs,afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump,len(iobs))
-        best_fit_power_spectrum = afino_spectral_models.splwc_AddNormalBump2_plus_extra_bump(best_param_vals,frequencies)
+        best_fit_power_spectrum = afino_spectral_models.pow_2gauss(best_param_vals,frequencies)
     best_fit_params = best_param_vals
 
 
@@ -105,15 +105,15 @@ def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cuto
 
     #also want to find the goodness of fit for the best model
     smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
-    if model == 'single_power_law_with_constant':
+    if model == 'pow':
         deg_free = len(iobs) - 2
         rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
         prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    elif model == 'broken_power_law_with_constant':
+    elif model == 'bpow':
         deg_free = len(iobs) - 4
         rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
         prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    elif model == 'splwc_AddNormalBump2_plus_extra_bump':
+    elif model == 'pow_2gauss':
         deg_free = len(iobs) - 8
         rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
         prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
@@ -142,7 +142,7 @@ def main_analysis(ts, model='single_power_law_with_constant', low_frequency_cuto
         
  
 
-def randomize_initial_guess(model = 'single_power_law_with_constant'):
+def randomize_initial_guess(model = 'pow'):
     
     # randomize initial guesses for all model starting parameters
     gauss_width = (np.random.random(1) / 5.) + 0.05
@@ -162,17 +162,17 @@ def randomize_initial_guess(model = 'single_power_law_with_constant'):
     background = np.random.random(1) * (-20) 
 
     # return the initial guess parameters for the appropriate model
-    if model == 'single_power_law_with_constant':
+    if model == 'pow':
         initial_guess = [plaw_amp[0], plaw_index[0], background[0]]
             
-    elif model == 'splwc_AddNormalBump2':
+    elif model == 'pow_gauss':
         initial_guess = [plaw_amp[0], plaw_index[0], background[0], gauss_amp[0],
                          gauss_position[0], gauss_width[0]]
 
-    elif model == 'broken_power_law_with_constant':
+    elif model == 'bpow':
         initial_guess = [plaw_amp[0], plaw_index[0], np.exp(break_position[0]), plaw_index[0], background[0]]
 
-    elif model == 'splwc_AddNormalBump2_plus_extra_bump':
+    elif model == 'pow_2gauss':
          initial_guess = [plaw_amp[0], plaw_index[0], background[0], gauss_amp[0],
                           gauss_position[0], gauss_width[0], second_gauss_amp[0],
                           second_gauss_position[0], second_gauss_width[0]]

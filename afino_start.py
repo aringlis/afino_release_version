@@ -94,7 +94,7 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
     plt.tick_params(labelsize=12)
 
     #work out the 1sig and 2sig upper levels for model m1
-    m1_plaw = afino_spectral_models.power_law_with_constant(analysis_summary['m1']['params'][0:3],analysis_summary['m1']['frequencies'])
+    m1_plaw = afino_spectral_models.pow(analysis_summary['m1']['params'][0:3],analysis_summary['m1']['frequencies'])
     m1_quantile_1sig = (-np.log(0.16) * m1_plaw)
     m1_quantile_2sig = (-np.log(0.025) * m1_plaw)
     m1_quantile_2sig_lower = (-np.log(0.975) * m1_plaw)
