@@ -22,61 +22,6 @@ def model_comparison(ts,description=None,generic=False,low_frequency_cutoff=None
 
    # m2 = main_analysis(ts, model='broken_power_law_with_constant',low_frequency_cutoff=low_frequency_cutoff)
 
-   #just for testing
-   # m0 = results[0]
-   # m1 = results[1]
-   # m2 = results[2]
-        
-    #parse everything into one dictionary
-
-   # dBIC_0v1 = m0['BIC'] - m1['BIC']
-   # dBIC_2v1 = m2['BIC'] - m1['BIC']
-   # dBIC_0v2 = m0['BIC'] - m2['BIC'] 
-   # analysis_summary = {}
-   # analysis_summary['m0'] = m0
-   # analysis_summary['m1'] = m1
-   # analysis_summary['m2'] = m2
-   # analysis_summary['dBIC'] = dBIC_0v1
-   # analysis_summary['dBIC_2v1'] = dBIC_2v1
-   # analysis_summary['dBIC_0v2'] = dBIC_0v2
-
-    #print some info for the user
-#    print('Analysis summary info:')
-#    print('-----------------------------')
-#    print('Lnlike plaw: ' + str(m0['lnlike']))
-#    print('Lnlike gauss: ' + str(m1['lnlike']))
-#    print('Lnlike bpow: ' + str(m2['lnlike']))
-#    print(' ')
-#    print('BIC plaw: ' + str(m0['BIC']))
-#    print('BIC gauss: ' + str(m1['BIC']))
-#    print('BIC bpow: ' + str(m2['BIC']))
-#    print(' ')
-#    print('rchi2 plaw: ' + str(m0['rchi2']))
-##    print('prob. plaw: ' + str(m0['probability']))
- #   print(' ')
- ##   print('rchi2 gauss: ' + str(m1['rchi2']))
-  #  print('prob. gauss: ' + str(m1['probability']))
-  #  print(' ')
-  #  print('rchi2 bpow: ' + str(m2['rchi2']))
-  #  print('prob. bpow: ' + str(m2['probability']))
-  #  print(' ')
-  #  print('dBIC M0 vs M1: ' + str(dBIC_0v1))
-  #  print('dBIC M2 vs M1: ' + str(dBIC_2v1))
-  #  print('dBIC M0 vs M2: ' + str(dBIC_0v2))
-  #  print('-----------------------------')
-  #  print(' ')
-  #  print(' ')
-    
-
-    #now have a dictionary of results for each model in m0 and m1
-    #save this to a combined results file
-
- #   if generic:
- #       fname = os.path.join(os.path.expanduser('~/afino_repository/generic/'),'afino_summary_' + description + '.pickle')
- #   else:
- #       fname = os.path.join(os.path.expanduser('~/afino_repository/afino_analysis_summaries/'),'afino_summary_' + description + '.pickle')
- #   pickle.dump(analysis_summary,open(fname,'wb'))
- #   analysis_summary['analysis_filename'] = fname
 
     return analysis_summary
     
