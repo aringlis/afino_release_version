@@ -7,8 +7,8 @@ BIC value, are stored in a dictionary and returned.
 
 import numpy as np
 import copy
-import afino.afino_spectral_models
-import afino.afino_model_fitting
+from afino import afino_spectral_models
+from afino import afino_model_fitting
 
 def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
                       overwrite_gauss_bounds = None, overwrite_extra_gauss_bounds = None):

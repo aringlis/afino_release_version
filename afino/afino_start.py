@@ -5,7 +5,7 @@ import numpy as np
 
 from afino.afino_series import AfinoSeries, prep_series
 from afino.afino_model_comparison import model_comparison
-import afino.afino_spectral_models
+from afino import afino_spectral_models
 import matplotlib.pyplot as plt
 
 
