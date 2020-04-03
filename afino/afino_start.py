@@ -3,9 +3,9 @@ import os
 import datetime
 import numpy as np
 
-from afino_series import AfinoSeries, prep_series
-from afino_model_comparison import model_comparison
-import afino_spectral_models
+from afino.afino_series import AfinoSeries, prep_series
+from afino.afino_model_comparison import model_comparison
+import afino.afino_spectral_models
 import matplotlib.pyplot as plt
 
 
