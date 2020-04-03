@@ -133,7 +133,7 @@ def bpow_const(a, f):
 
 def broken_power_law_with_constant_plus_extra_bump(a, f):
 
-    return broken_power_law(a[0:4], f) + constant(a[4]) + NormalBump2(np.log(f), a[5:8])
+    return bpow(a[0:4], f) + constant(a[4]) + NormalBump2(np.log(f), a[5:8])
     
 
 # ----------------------------------------------------------------------------
@@ -155,7 +155,7 @@ def broken_power_law_with_constant_with_lognormal(a, f):
     f : ndarray
         frequencies
     """
-    return broken_power_law(a[0:4], f) + constant(a[4])
+    return bpow(a[0:4], f) + constant(a[4])
 
 
 # ----------------------------------------------------------------------------
@@ -217,7 +217,7 @@ def power_law_with_constant_with_lognormal(a, f):
     f : ndarray
         frequencies
     """
-    return power_law_with_constant(a[0:3], f) + lognormal(a[3:6], f)
+    return pow_const(a[0:3], f) + lognormal(a[3:6], f)
 
 
 
