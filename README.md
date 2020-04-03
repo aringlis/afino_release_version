@@ -1,4 +1,4 @@
-AFINO release version
+AFINO (Automated Flare Inference of Oscillations)
 ===============
 
 ![Python application](https://github.com/aringlis/afino_release_version/workflows/Python%20application/badge.svg)
