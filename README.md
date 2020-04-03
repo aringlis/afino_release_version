@@ -3,4 +3,6 @@ AFINO release version
 
 ![Python application](https://github.com/aringlis/afino_release_version/workflows/Python%20application/badge.svg)
 
-Work-in-progress release version of the AFINO time series analysis code. NOT currently ready for distribution.
+AFINO (Automated Flare Inference of Oscillations) is an automatable timeseries analysis code designed to identify oscillatory signatures. AFINO uses a Fourier-based model comparison approach. 
+
+This code repository is a work in progress, and the functionality is provided as-is without guarantees. 
