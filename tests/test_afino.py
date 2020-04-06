@@ -43,6 +43,11 @@ def test_pow():
     power = afino_spectral_models.pow([1.0,1.0],freqs)
     assert_almost_equal(power[0], 2.718, decimal = 3)
 
+def test_pow_const():
+    freqs = np.linspace(0.001,5.0)
+    power = afino_spectral_models.pow_const([1.0,1.0,0.0],freqs)
+    assert_almost_equal(power[-1], 1.00, decimal = 2)
+    
     
 
 
