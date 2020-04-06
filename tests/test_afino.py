@@ -3,7 +3,7 @@ import numpy as np
 from numpy.testing import assert_almost_equal
 from afino import afino_series
 from afino import afino_utils
-from afino import afin_spectral_models
+from afino import afino_spectral_models
 
 
 def test_afinoseries():
