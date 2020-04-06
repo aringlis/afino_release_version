@@ -1,6 +1,7 @@
 # tests for AFINO
 import numpy as np
 from afino import afino_series
+from afino import afino_utils
 
 
 def test_afinoseries():
@@ -23,8 +24,16 @@ def test_prep_series():
     assert ts_prepped.data[0] == 0.0
     assert ts_prepped.data[-1] == 0.0
 
+def test_model_id_to_string():
+    model_string = afino_utils.model_string_from_id(1)
+    assert model_string == 'pow_const_gauss'
+    model_string = afino_utils.model_string_from_id(3)
+    assert model_string == 'pow_const_2gauss'
+
 def test_nothing():
     pass
+
+
 
 
 
