@@ -333,7 +333,7 @@ def create_generic_summary_plot_twobump(ts, analysis_summary, description, low_f
     if savedir:
         plt.savefig(os.path.join(savedir,savefilename))
     else:
-        plt.savefig(os.path.join('/Users/Inglis/afino_repository/generic/', savefilename ))
+        plt.savefig(os.path.join(os.path.expanduser('~'), savefilename ))
     plt.close()
 
     return
