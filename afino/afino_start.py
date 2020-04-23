@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 def analyse_series(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None):
-    '''Analyse a single, generic timeseries using the AFINO model comparison code.'''
+    """Analyse a single, generic timeseries using the AFINO model comparison code."""
 
     ts = AfinoSeries(times,flux)
     #first need to apply a window function 
@@ -27,7 +27,7 @@ def analyse_series(times, flux, description=None, low_frequency_cutoff=None, sav
 
 
 def analyse_series_twobump(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None, overwrite_extra_gauss_bounds = None):
-    '''Analyse a single, generic timeseries using the AFINO model comparison code., with extra models'''
+    """Analyse a single, generic timeseries using the AFINO model comparison code., with extra models"""
 
     ts = AfinoSeries(times,flux)
     #first need to multiply by window function before input into the MCMC
@@ -47,6 +47,7 @@ def analyse_series_twobump(times, flux, description=None, low_frequency_cutoff=N
     
     
 def create_generic_summary_plot(ts, analysis_summary, description, low_frequency_cutoff=None, savedir=None):
+    """Create a summary plot showing the result of an AFINO analysis run."""
     
     import seaborn as sns
     sns.set_style('ticks',{'xtick.direction':'in','ytick.direction':'in'})
@@ -164,7 +165,8 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
 
 
 def create_generic_summary_plot_twobump(ts, analysis_summary, description, low_frequency_cutoff=None, savedir=None):
-
+    """Create a summary plot showing the result of an AFINO analysis run."""
+    
     import seaborn as sns
     sns.set_style('ticks',{'xtick.direction':'in','ytick.direction':'in'})
     sns.set_context('paper')
