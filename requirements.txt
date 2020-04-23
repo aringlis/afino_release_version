@@ -2,3 +2,6 @@ numpy
 scipy
 matplotlib
 astropy
+os
+json
+pickle
