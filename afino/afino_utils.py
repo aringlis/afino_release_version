@@ -1,3 +1,9 @@
+"""
+This module provides a number of convenience functions for use throughout
+the AFINO codebase.
+"""
+
+
 import pickle
 import json
 import os
@@ -5,8 +11,8 @@ import copy
 import numpy as np
 
 class NumpyEncoder(json.JSONEncoder):
-    '''This encoder converts numpy arrays to lists so that they
-       can be saved in JSON format'''
+    """This encoder converts numpy arrays to lists so that they
+       can be saved in JSON format"""
     
     def default(self, obj):
         if isinstance(obj, np.ndarray):
@@ -16,6 +22,7 @@ class NumpyEncoder(json.JSONEncoder):
 
     
 def model_string_from_id(id):
+    """This function converts an AFINO model ID integer to a string descriptor"""
 
     allowed_models = {
         0 : 'pow_const',
@@ -33,6 +40,9 @@ def model_string_from_id(id):
     
 
 def save_afino_results(results, use_json = False, description = None):
+    """This function saves the results of an AFINO analysis run to either a JSON file
+    or a Pickle file."""
+    
 
     #ensure the directory to save plots exists, create it if not.
     os.makedirs(os.path.expanduser('~/afino_repository/saves/'),exist_ok=True)
@@ -96,9 +106,9 @@ def save_afino_results(results, use_json = False, description = None):
 
 
 def restore_json_save_file(fname):
-    '''This function restores an AFINO JSON save file and converts
+    """This function restores an AFINO JSON save file and converts
        certain dictionary entries back into their original ndarray form.
-       The output should be identical to that from the pickle save files'''
+       The output should be identical to that from the pickle save files"""
     
     result = json.load(open(fname,'r'))
     converted_result = copy.deepcopy(result)
