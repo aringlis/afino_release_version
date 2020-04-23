@@ -17,7 +17,7 @@ def analyse_series(times, flux, description=None, low_frequency_cutoff=None, sav
     sig_apodized=prep_series(ts)
     #now perform model comparison
     if not description:
-        description = 'generic_series_' + datetime.datetime.now().strftime('%Y%m%d_%H%M%S') 
+        description = datetime.datetime.now().strftime('%Y%m%d_%H%M%S') 
    
     analysis_summary=model_comparison(sig_apodized,description=description, generic=True, low_frequency_cutoff=low_frequency_cutoff,
                                     overwrite_gauss_bounds = overwrite_gauss_bounds)
@@ -34,7 +34,7 @@ def analyse_series_twobump(times, flux, description=None, low_frequency_cutoff=N
     sig_apodized=prep_series(ts)
     #now perform model comparison
     if not description:
-        description = 'generic_series_' + datetime.datetime.now().strftime('%Y%m%d_%H%M%S') 
+        description = 'afino_series_' + datetime.datetime.now().strftime('%Y%m%d_%H%M%S') 
     root = '~/afino_repository/tempfiles/comparisons'
    
     analysis_summary=model_comparison_mms(sig_apodized,root=root,description=description, generic=True, low_frequency_cutoff=low_frequency_cutoff,
@@ -47,11 +47,14 @@ def analyse_series_twobump(times, flux, description=None, low_frequency_cutoff=N
     
     
 def create_generic_summary_plot(ts, analysis_summary, description, low_frequency_cutoff=None, savedir=None):
-
+    
     import seaborn as sns
     sns.set_style('ticks',{'xtick.direction':'in','ytick.direction':'in'})
     sns.set_context('paper')
 
+    #ensure the directory to save plots exists, create it if not.
+    os.makedirs(os.path.expanduser('~/afino_repository/plots/'),exist_ok=True)
+    
    # model_comparison = pickle.load(open(model_comparison_filename,'rb'))
     BIC = analysis_summary['dBIC'] #model_comparison['BIC_ratio']
     
@@ -149,11 +152,11 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
    # plt.figtext(0.61,0.63,r'$A=%4.3f$' % analysis_summary['m0']['params'][0],fontsize=12)
     
 
-    savefilename = 'summary_plot_' + description + '.pdf'
+    savefilename = 'afino_summary_plot_' + description + '.pdf'
     if savedir:
         plt.savefig(os.path.join(savedir,savefilename))
     else:
-        plt.savefig(os.path.join(os.path.expanduser('~/afino_repository/generic/'), savefilename ))
+        plt.savefig(os.path.join(os.path.expanduser('~/afino_repository/plots/'), savefilename ))
     plt.close()
 
     return
@@ -166,6 +169,9 @@ def create_generic_summary_plot_twobump(ts, analysis_summary, description, low_f
     sns.set_style('ticks',{'xtick.direction':'in','ytick.direction':'in'})
     sns.set_context('paper')
 
+    #ensure the directory to save plots exists, create it if not.
+    os.makedirs(os.path.expanduser('~/afino_repository/plots/'),exist_ok=True)
+    
    # model_comparison = pickle.load(open(model_comparison_filename,'rb'))
     BIC = analysis_summary['dBIC'] #model_comparison['BIC_ratio']
 
@@ -333,7 +339,7 @@ def create_generic_summary_plot_twobump(ts, analysis_summary, description, low_f
     if savedir:
         plt.savefig(os.path.join(savedir,savefilename))
     else:
-        plt.savefig(os.path.join(os.path.expanduser('~'), savefilename ))
+        plt.savefig(os.path.join(os.path.expanduser('~/afino_repository/plots/'), savefilename ))
     plt.close()
 
     return

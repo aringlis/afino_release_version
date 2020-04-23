@@ -34,6 +34,9 @@ def model_string_from_id(id):
 
 def save_afino_results(results, use_json = False, description = None):
 
+    #ensure the directory to save plots exists, create it if not.
+    os.makedirs(os.path.expanduser('~/afino_repository/saves/'),exist_ok=True)
+    
     analysis_summary = {}
 
     #almost certainly not pythonic!
@@ -82,10 +85,10 @@ def save_afino_results(results, use_json = False, description = None):
     #save all the results to a JSON or pickle file
 
     if use_json:
-        fname = os.path.join(os.path.expanduser('~/afino_repository/generic/'),'afino_summary_' + description + '.json')
+        fname = os.path.join(os.path.expanduser('~/afino_repository/saves/'),'afino_summary_data_' + description + '.json')
         json.dump(analysis_summary,open(fname,'w'), cls = NumpyEncoder)
     else:
-        fname = os.path.join(os.path.expanduser('~/afino_repository/generic/'),'afino_summary_' + description + '.pickle')
+        fname = os.path.join(os.path.expanduser('~/afino_repository/saves/'),'afino_summary_data_' + description + '.pickle')
         pickle.dump(analysis_summary,open(fname,'wb'))
         
 
