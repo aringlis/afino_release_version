@@ -4,7 +4,7 @@ from numpy.testing import assert_almost_equal
 from afino import afino_series
 from afino import afino_utils
 from afino import afino_spectral_models
-
+from afino.afino_main_analysis3 import main_analysis
 
 def test_afinoseries():
     tt = np.linspace(0,100,101)
@@ -35,7 +35,21 @@ def test_model_id_to_string():
 def test_nothing():
     pass
 
+def test_main_analysis():
+    tt = np.linspace(0,100,101)
+    flux = np.random.random(101)
+    ts = afino_series.AfinoSeries(tt,flux)
+    ts_prepped = afino_series.prep_series(ts)
+    result = main_analysis(ts_prepped, model='pow_const')
 
+    assert type(result) == dict
+    assert type(result['lnlike']) == np.float64
+    assert type(result['BIC']) == np.float64
+    assert result['model'] == 'pow_const'
+    assert type(result['frequencies']) == np.ndarray
+    assert type(result['power']) == np.ndarray
+    assert type(result['best_fit_power_spectrum']) == np.ndarray
+    
 # various tests for the model functions
 
 def test_pow():
