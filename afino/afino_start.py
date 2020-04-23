@@ -19,7 +19,7 @@ def analyse_series(times, flux, description=None, low_frequency_cutoff=None, sav
     if not description:
         description = datetime.datetime.now().strftime('%Y%m%d_%H%M%S') 
    
-    analysis_summary=model_comparison(sig_apodized,description=description, generic=True, low_frequency_cutoff=low_frequency_cutoff,
+    analysis_summary=model_comparison(sig_apodized,description=description, low_frequency_cutoff=low_frequency_cutoff,
                                     overwrite_gauss_bounds = overwrite_gauss_bounds)
  
     
