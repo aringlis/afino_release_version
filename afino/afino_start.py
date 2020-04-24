@@ -9,7 +9,8 @@ from afino import afino_spectral_models
 import matplotlib.pyplot as plt
 
 
-def analyse_series(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None):
+def analyse_series(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None,
+                       use_json = True):
     """Analyse a single, generic timeseries using the AFINO model comparison code."""
 
     ts = AfinoSeries(times,flux)
@@ -20,7 +21,7 @@ def analyse_series(times, flux, description=None, low_frequency_cutoff=None, sav
         description = datetime.datetime.now().strftime('%Y%m%d_%H%M%S') 
    
     analysis_summary=model_comparison(sig_apodized,description=description, low_frequency_cutoff=low_frequency_cutoff,
-                                    overwrite_gauss_bounds = overwrite_gauss_bounds)
+                                    overwrite_gauss_bounds = overwrite_gauss_bounds, use_json = use_json)
  
     
     create_generic_summary_plot(ts, analysis_summary, description, low_frequency_cutoff=low_frequency_cutoff, savedir=savedir)

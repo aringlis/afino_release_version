@@ -5,7 +5,8 @@ from afino.afino_main_analysis3 import main_analysis
 from afino.afino_utils import model_string_from_id
 from afino.afino_utils import save_afino_results
 
-def model_comparison(ts,description=None,low_frequency_cutoff=None, overwrite_gauss_bounds = None, model_ids = [0,1,2]):
+def model_comparison(ts,description=None,low_frequency_cutoff=None, overwrite_gauss_bounds = None, model_ids = [0,1,2],
+                         use_json = True):
 
     results = []
     for id in model_ids:
@@ -13,7 +14,7 @@ def model_comparison(ts,description=None,low_frequency_cutoff=None, overwrite_ga
         result = main_analysis(ts, model=model_string, low_frequency_cutoff = low_frequency_cutoff, overwrite_gauss_bounds = overwrite_gauss_bounds)
         results.append(result)
 
-    analysis_summary = save_afino_results(results, description = description, use_json = True)
+    analysis_summary = save_afino_results(results, description = description, use_json = use_json)
     
    # m0 = main_analysis(ts, model='single_power_law_with_constant',low_frequency_cutoff=low_frequency_cutoff)
   
