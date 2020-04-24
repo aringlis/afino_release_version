@@ -117,33 +117,12 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
 
 
     #----------------------------------------
-
-
-
-    #also want to find the goodness of fit for the best model
- #   smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
-  #  if model == 'pow_const':
-   #     deg_free = len(iobs) - 2
-    #    rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
-     #   prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    #elif model == 'bpow_const':
-    #    deg_free = len(iobs) - 4
-     #   rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
-     #   prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    #elif model == 'pow_const_2gauss':
-    #    deg_free = len(iobs) - 8
-    #    rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
-    #    prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    #else:
-    #    deg_free = len(iobs) - 5
-    #    rchi2 = afino_model_fitting.rchi2(1,deg_free,smr)
-    #    prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-
+    
 
     #now have the best fit, likelihood and BIC value. Return all these in a dictionary
     #will save combined fit results (both models) to a pickle file in the next level up.
     fitresults = {}
-    fitresults['lnlike'] = best_lnlike #likelihoods[selection_index]
+    fitresults['lnlike'] = best_lnlike 
     fitresults['model'] = model
     fitresults['BIC'] = jack_bic
     fitresults['best_fit_power_spectrum'] = best_fit_power_spectrum
