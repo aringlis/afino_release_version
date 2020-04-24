@@ -84,18 +84,35 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
             
 
     #calculate BIC and store best fit power spectrum and params
+    #also want to find the goodness of fit for the best model
     if model == 'pow_const':
         jack_bic = afino_model_fitting.BIC(2,best_param_vals,frequencies,iobs,afino_spectral_models.pow_const,len(iobs))
         best_fit_power_spectrum = afino_spectral_models.pow_const(best_param_vals,frequencies)
+        smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
+        deg_free = len(iobs) - 2
+        rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
+        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
     elif model == 'pow_const_gauss':
         jack_bic = afino_model_fitting.BIC(5,best_param_vals,frequencies,iobs,afino_spectral_models.pow_const_gauss,len(iobs))
         best_fit_power_spectrum = afino_spectral_models.pow_const_gauss(best_param_vals,frequencies)
+        smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
+        deg_free = len(iobs) - 5
+        rchi2 = afino_model_fitting.rchi2(1,deg_free,smr)
+        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
     elif model == 'bpow_const':
         jack_bic = afino_model_fitting.BIC(4,best_param_vals,frequencies,iobs,afino_spectral_models.bpow_const,len(iobs))
         best_fit_power_spectrum = afino_spectral_models.bpow_const(best_param_vals,frequencies)
+        smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
+        deg_free = len(iobs) - 4
+        rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
+        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
     elif model == 'pow_const_2gauss':
         jack_bic = afino_model_fitting.BIC(8,best_param_vals,frequencies,iobs,afino_spectral_models.pow_const_2gauss,len(iobs))
         best_fit_power_spectrum = afino_spectral_models.pow_const_2gauss(best_param_vals,frequencies)
+        smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
+        deg_free = len(iobs) - 8
+        rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
+        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
     best_fit_params = best_param_vals
 
 
@@ -104,23 +121,23 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
 
 
     #also want to find the goodness of fit for the best model
-    smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
-    if model == 'pow_const':
-        deg_free = len(iobs) - 2
-        rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
-        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    elif model == 'bpow_const':
-        deg_free = len(iobs) - 4
-        rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
-        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    elif model == 'pow_const_2gauss':
-        deg_free = len(iobs) - 8
-        rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
-        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
-    else:
-        deg_free = len(iobs) - 5
-        rchi2 = afino_model_fitting.rchi2(1,deg_free,smr)
-        prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
+ #   smr = afino_model_fitting.rhoj(iobs,best_fit_power_spectrum)
+  #  if model == 'pow_const':
+   #     deg_free = len(iobs) - 2
+    #    rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
+     #   prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
+    #elif model == 'bpow_const':
+    #    deg_free = len(iobs) - 4
+     #   rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
+     #   prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
+    #elif model == 'pow_const_2gauss':
+    #    deg_free = len(iobs) - 8
+    #    rchi2 = afino_model_fitting.rchi2(1, deg_free, smr)
+    #    prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
+    #else:
+    #    deg_free = len(iobs) - 5
+    #    rchi2 = afino_model_fitting.rchi2(1,deg_free,smr)
+    #    prob = afino_model_fitting.prob_this_rchi2_or_larger(rchi2, 1, deg_free)
 
 
     #now have the best fit, likelihood and BIC value. Return all these in a dictionary
