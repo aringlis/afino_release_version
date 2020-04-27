@@ -8,4 +8,4 @@ AFINO (Automated Flare Inference of Oscillations) is an automatable timeseries a
 
 This code repository is a work in progress, and the functionality is provided as-is without guarantees. 
 
-Documentation is available ![here](https://afino-release-version.readthedocs.io/en/latest/).
+Documentation is available [here](https://afino-release-version.readthedocs.io/en/latest/).
