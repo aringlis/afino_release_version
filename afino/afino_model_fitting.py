@@ -67,9 +67,19 @@ def go_gauss_plus_extra_bump(freqs, data, model_function, initial_guess, method,
 def rhoj(Sj, shatj):
     """
     Sample to Model Ratio (SMR) estimator (Eq. 5)
-    :param Sj: random variables (data)
-    :param shatj: best estimate of the model
-    :return: SMR estimator
+
+    Parameters
+    ----------
+
+    Sj
+        random variables (i.e. data)
+    shatj
+        best estimate of the model. Should be same length as Sj
+
+    Returns
+    -------
+    ndarray
+        The Sample-to-Model ratio
     """
     return Sj / shatj
 
@@ -94,7 +104,7 @@ def rchi2(m, nu, rhoj):
     Returns
     -------
     float
-        the sample-to-model ratio, a goodness of fit estimator
+        A chi-square like goodness of fit estimator
     """
     return (m / (1.0 * nu)) * np.sum((1.0 - rhoj) ** 2)
 
