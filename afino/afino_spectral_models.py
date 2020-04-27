@@ -22,6 +22,7 @@ def fnorm(f, normalization):
 #
 def constant(a):
     """The power spectrum is a constant across all frequencies
+    
     Parameters
     ----------
     a : float
@@ -36,6 +37,7 @@ def constant(a):
 def pow(a, f):
     """Simple power law.  This model assumes that the power
     spectrum is made up of a power law at all frequencies.
+    
     Parameters
     ----------
     a : ndarray[2]
@@ -53,6 +55,7 @@ def pow(a, f):
 def bpow(a, f):
     """Broken power law.  This model assumes that there is a break in the power
     spectrum at some given frequency.
+   
     Parameters
     ----------
     a : ndarray[3]
@@ -78,6 +81,7 @@ def sum_of_pulses(a, f):
     """Sum of pulses.  This model is based on Aschwanden "Self Organized
     Criticality in Astrophysics", Eq. 4.8.23.  Simulations implementing this
     equation come up with a shape that is modeled below.
+    
     Parameters
     ----------
     a : ndarray[3]
@@ -97,6 +101,7 @@ def sum_of_pulses_with_constant(a, f):
     """Sum of pulses plus constant.  This model is based on Aschwanden "Self
     Organized Criticality in Astrophysics", Eq. 4.8.23, with a constant
     background to model detector noise.
+    
     Parameters
     ----------
     a : ndarray[3]
@@ -117,6 +122,7 @@ def bpow_const(a, f):
     """Broken power law with constant.  This model assumes that there is a
     break in the power spectrum at some given frequency.  At high
     frequencies the power spectrum is dominated by the constant background.
+    
     Parameters
     ----------
     a : ndarray(5)
@@ -144,6 +150,7 @@ def broken_power_law_with_constant_with_lognormal(a, f):
     there is a break in the power spectrum at some given frequency.  At high
     frequencies the power spectrum is dominated by the constant background.  At
     some particular frequency there is a lognormal (narrowband distribution)
+    
     Parameters
     ----------
     a : ndarray(5)
@@ -165,6 +172,7 @@ def pow_const(a, f):
     """Power law with a constant.  This model assumes that the power
     spectrum is made up of a power law and a constant background.  At high
     frequencies the power spectrum is dominated by the constant background.
+    
     Parameters
     ----------
     a : ndarray[2]
@@ -182,6 +190,7 @@ def pow_const(a, f):
 def lognormal(a, f):
     """
     A lognormal distribution
+    
     Parameters
     ----------
     a : ndarray(3)
@@ -204,6 +213,7 @@ def lognormal_CF(f, a, b, c):
 def power_law_with_constant_with_lognormal(a, f):
     """
     Power law with constant and a lognormal.
+    
     Parameters
     ----------
     a : ndarray[6]
