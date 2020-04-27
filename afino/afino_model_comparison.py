@@ -7,7 +7,8 @@ from afino.afino_utils import save_afino_results
 
 def model_comparison(ts,description=None,low_frequency_cutoff=None, overwrite_gauss_bounds = None, model_ids = [0,1,2],
                          use_json = True):
-
+    """Initiate the comparison of different models to the Fourier power spectrum of a timeseries."""
+    
     results = []
     for id in model_ids:
         model_string = model_string_from_id(id)

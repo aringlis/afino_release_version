@@ -1,5 +1,5 @@
 """
-Simple time series object
+A simple time series object
 """
 
 import numpy as np
