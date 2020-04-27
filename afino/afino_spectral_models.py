@@ -217,13 +217,12 @@ def power_law_with_constant_with_lognormal(a, f):
     Parameters
     ----------
     a : ndarray[6]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index
-        a[2] : the natural logarithm of the constant background
-        a[3] : the natural logarithm of the Gaussian amplitude
-        a[4] : the natural logarithm of the center of the Gaussian
-        a[5] : the width of the Gaussian in units of natural logarithm of the
-               frequency
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index
+        * a[2] : the natural logarithm of the constant background
+        * a[3] : the natural logarithm of the Gaussian amplitude
+        * a[4] : the natural logarithm of the center of the Gaussian
+        * a[5] : the width of the Gaussian in units of natural logarithm of the frequency
     f : ndarray
         frequencies
     """
