@@ -7,3 +7,5 @@ AFINO (Automated Flare Inference of Oscillations)
 AFINO (Automated Flare Inference of Oscillations) is an automatable timeseries analysis code designed to identify oscillatory signatures. AFINO uses a Fourier-based model comparison approach. 
 
 This code repository is a work in progress, and the functionality is provided as-is without guarantees. 
+
+Documentation is available ![here](https://afino-release-version.readthedocs.io/en/latest/).
