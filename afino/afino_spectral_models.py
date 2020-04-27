@@ -41,8 +41,8 @@ def pow(a, f):
     Parameters
     ----------
     a : ndarray[2]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index
     f : ndarray
         frequencies
     """
@@ -59,10 +59,10 @@ def bpow(a, f):
     Parameters
     ----------
     a : ndarray[3]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index at frequencies lower than the break frequency
-        a[2] : break frequency
-        a[3] : the power law index at frequencies higher than the break frequency
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index at frequencies lower than the break frequency
+        * a[2] : break frequency
+        * a[3] : the power law index at frequencies higher than the break frequency
     f : ndarray
         frequencies
     """
@@ -85,9 +85,9 @@ def sum_of_pulses(a, f):
     Parameters
     ----------
     a : ndarray[3]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the scale frequency
-        a[2] : the power law index
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the scale frequency
+        * a[2] : the power law index
     f : ndarray
         frequencies
     """
@@ -105,10 +105,10 @@ def sum_of_pulses_with_constant(a, f):
     Parameters
     ----------
     a : ndarray[3]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the scale frequency
-        a[2] : the power law index
-        a[3] : natural logarithm of the background constant
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the scale frequency
+        * a[2] : the power law index
+        * a[3] : natural logarithm of the background constant
     f : ndarray
         frequencies
     """
@@ -126,11 +126,11 @@ def bpow_const(a, f):
     Parameters
     ----------
     a : ndarray(5)
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index at frequencies lower than the break frequency
-        a[2] : break frequency
-        a[3] : the power law index at frequencies higher than the break frequency
-        a[4] : the natural logarithm of the constant background
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index at frequencies lower than the break frequency
+        * a[2] : break frequency
+        * a[3] : the power law index at frequencies higher than the break frequency
+        * a[4] : the natural logarithm of the constant background
     f : ndarray
         frequencies
     """
@@ -154,11 +154,11 @@ def broken_power_law_with_constant_with_lognormal(a, f):
     Parameters
     ----------
     a : ndarray(5)
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index at frequencies lower than the break frequency
-        a[2] : break frequency
-        a[3] : the power law index at frequencies higher than the break frequency
-        a[4] : the natural logarithm of the constant background
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index at frequencies lower than the break frequency
+        * a[2] : break frequency
+        * a[3] : the power law index at frequencies higher than the break frequency
+        * a[4] : the natural logarithm of the constant background
     f : ndarray
         frequencies
     """
@@ -176,9 +176,9 @@ def pow_const(a, f):
     Parameters
     ----------
     a : ndarray[2]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index
-        a[2] : the natural logarithm of the constant background
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index
+        * a[2] : the natural logarithm of the constant background
     f : ndarray
         frequencies
     """
@@ -194,10 +194,9 @@ def lognormal(a, f):
     Parameters
     ----------
     a : ndarray(3)
-        a[0] : the natural logarithm of the Gaussian amplitude
-        a[1] : the natural logarithm of the center of the Gaussian
-        a[2] : the width of the Gaussian in units of natural logarithm of the
-               frequency
+        * a[0] : the natural logarithm of the Gaussian amplitude
+        * a[1] : the natural logarithm of the center of the Gaussian
+        * a[2] : the width of the Gaussian in units of natural logarithm of the frequency
     f : ndarray
         frequencies
     """
@@ -248,13 +247,14 @@ def pow_const_gauss(a, f):
 
     Parameters
     ----------
-    f : ndarray
-        frequencies
 
     a : ndarray[2]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index
-        a[2] : the natural logarithm of the constant background
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index
+        * a[2] : the natural logarithm of the constant background
+
+    f : ndarray
+        frequencies
     """
     return pow_const(a[0:3], f) + NormalBump2(np.log(f), a[3:6])
 
@@ -265,19 +265,21 @@ def pow_const_2gauss(a,f):
 
     Parameters
     ----------
+
+    a : ndarray[8]
+        * a[0] : the natural logarithm of the normalization constant
+        * a[1] : the power law index
+        * a[2] : the natural logarithm of the constant background
+        * a[3] : The amplitude of the first bump
+        * a[4] : the frequency location of the first bump
+        * a[5] : the width of the first bump
+        * a[6] : The amplitude of the second bump
+        * a[7] : the frequency location of the second bump
+        * a[8] : the width of the second bump
+
     f : ndarray
         frequencies
 
-    a : ndarray[8]
-        a[0] : the natural logarithm of the normalization constant
-        a[1] : the power law index
-        a[2] : the natural logarithm of the constant background
-        a[3] : The amplitude of the first bump
-        a[4] : the frequency location of the first bump
-        a[5] : the width of the first bump
-        a[6] : The amplitude of the second bump
-        a[7] : the frequency location of the second bump
-        a[8] : the width of the second bump
     """
         
     return pow_const(a[0:3], f) + NormalBump2(np.log(f), a[3:6]) + NormalBump2(np.log(f), a[6:9])
