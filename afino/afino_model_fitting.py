@@ -80,10 +80,21 @@ def rhoj(Sj, shatj):
 def rchi2(m, nu, rhoj):
     """
     Goodness-of-fit estimator (Eq. 16)
-    :param m: number of spectra considered
-    :param nu: degrees of freedom
-    :param rhoj: sample to model ratio estimator
-    :return: SMR estimator
+
+    Parameters
+    ----------
+
+    m
+        number of spectra considered
+    nu
+        degrees of freedom
+    rhoj
+        sample to model ratio estimator
+
+    Returns
+    -------
+    float
+        the sample-to-model ratio, a goodness of fit estimator
     """
     return (m / (1.0 * nu)) * np.sum((1.0 - rhoj) ** 2)
 
