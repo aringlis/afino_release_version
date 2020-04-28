@@ -5,7 +5,7 @@ afino_start
 --------
 .. automodule:: afino.afino_start
     :members:
-
+       
 afino_model_comparison
 --------------------    
 .. automodule:: afino.afino_model_comparison
@@ -30,3 +30,10 @@ afino_utils
 --------
 .. automodule:: afino.afino_utils
     :members:
+
+afino_series
+--------
+.. autoclass:: afino.afino_series
+	       
+.. automodule:: afino.afino_series
+    :members: prep_series
