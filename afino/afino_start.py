@@ -11,7 +11,27 @@ import matplotlib.pyplot as plt
 
 def analyse_series(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None,
                        use_json = True):
-    """Analyse a single, generic timeseries using the AFINO model comparison code."""
+    """
+    Analyse a single, generic timeseries using the AFINO model comparison code.
+    
+    Parameters
+    ----------
+
+    times : ndarray
+        an array of times
+    flux : ndarray
+        an array of data points
+    description : string, optional
+        a string descriptor of the analysis run, that is incorporated into output filenames
+    low_frequency_cutoff : float, optional
+        specifies a frequency above which the input Fourier spectrum is not analysed
+    savedir : string, optional
+        specifies a directory for output save files
+    use_json : bool
+        If set to True, saves analysis output in JSON format. If False, pickle format is used.
+        Default is True.
+    
+    """
 
     ts = AfinoSeries(times,flux)
     #first need to apply a window function 
