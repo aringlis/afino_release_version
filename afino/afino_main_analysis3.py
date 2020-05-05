@@ -25,8 +25,8 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
     # if a low frequency cutoff is set, only analyse the spectrum at frequencies above it
     if low_frequency_cutoff:
         mask = [frequencies < low_frequency_cutoff]
-        frequencies = frequencies[mask]
-        iobs = iobs[mask]
+        frequencies = frequencies[tuple(mask)]
+        iobs = iobs[tuple(mask)]
     
     #---------------------------------------
     #use fitting methods from scipy optimize
