@@ -36,7 +36,13 @@ def model_string_from_id(id):
         raise ValueError('Invalid model string')
     
     return model_string
-        
+
+
+def relative_bics(saveresult):
+    """This convenience function calculates all the relative BIC comparisons
+    from an AFINO save result."""
+
+    
     
 
 def save_afino_results(results, use_json = False, description = None):
@@ -51,22 +57,23 @@ def save_afino_results(results, use_json = False, description = None):
 
     #almost certainly not pythonic!
     for i, r in enumerate(results):
-        analysis_summary['m'+str(i)] = r
+        id = r['ID']
+        analysis_summary['m'+str(id)] = r
 
     #print some info for the user
     print(' ')
     print('Analysis summary info:')
     print('-----------------------------')
     print(' ')
-    for i, r in enumerate(results):
-        print('Lnlike m' + str(i) + ' (' + r['model'] + '): ' + str(r['lnlike']))
+    for r in results:
+        print('Lnlike m' + str(r['ID']) + ' (' + r['model'] + '): ' + str(r['lnlike']))
     print(' ')
-    for i, r in enumerate(results):
-        print('BIC m' + str(i) + ' (' + r['model'] + '): ' + str(r['BIC']))
+    for r in results:
+        print('BIC m' + str(r['ID']) + ' (' + r['model'] + '): ' + str(r['BIC']))
     print(' ')
-    for i, r in enumerate(results):
-        print('rchi2 m' + str(i) + ' (' + r['model'] + '): ' + str(r['rchi2']))
-        print('prob. m' + str(i) + ' (' + r['model'] + '): ' + str(r['probability']))
+    for r in results:
+        print('rchi2 m' + str(r['ID']) + ' (' + r['model'] + '): ' + str(r['rchi2']))
+        print('prob. m' + str(r['ID']) + ' (' + r['model'] + '): ' + str(r['probability']))
     print(' ')
     print('-----------------------------')
     print(' ')

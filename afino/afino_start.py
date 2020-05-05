@@ -93,8 +93,9 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
     #plt.xlim([100,500])
 
     
-    for i in range(0,npanels-1):
-        key = 'm' + str(i)
+   # for i in range(0,npanels-1):
+    for i, key in enumerate(analysis_summary.keys()):
+        #key = 'm' + str(i)
         plt.subplot(1,npanels,i+2)
         plt.tick_params(labelsize=12)
 
@@ -103,7 +104,7 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
         plt.legend(fontsize=14)
         plt.xlabel('frequency (Hz)',fontsize=12)
         plt.ylabel('Fourier power',fontsize=12)
-        plt.title('Power Spectral Density (PSD) - Model ' + str(i),fontsize=12)
+        plt.title('Power Spectral Density (PSD) - Model ' + str(analysis_summary[key]['ID']),fontsize=12)
 
         plt.xlim([1e-5,1e-2])
         plt.text(2e-5,1e-2,r'$\alpha=%4.2f$' % analysis_summary[key]['params'][1],fontsize=14)
