@@ -13,6 +13,7 @@ def model_comparison(ts,description=None,low_frequency_cutoff=None, overwrite_ga
     for id in model_ids:
         model_string = model_string_from_id(id)
         result = main_analysis(ts, model=model_string, low_frequency_cutoff = low_frequency_cutoff, overwrite_gauss_bounds = overwrite_gauss_bounds)
+        result['ID'] = id
         results.append(result)
 
     analysis_summary = save_afino_results(results, description = description, use_json = use_json)
