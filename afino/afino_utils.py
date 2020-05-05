@@ -9,6 +9,7 @@ import json
 import os
 import copy
 import numpy as np
+import itertools
 
 class NumpyEncoder(json.JSONEncoder):
     """This encoder converts numpy arrays to lists so that they
@@ -41,8 +42,24 @@ def model_string_from_id(id):
 def relative_bics(saveresult):
     """This convenience function calculates all the relative BIC comparisons
     from an AFINO save result."""
-
     
+    bics = []
+    ids = []   
+    dbic_values = {}
+
+    for key in saveresult:
+        bics.append(saveresult[key]['BIC'])
+        ids.append(int(saveresult[key]['ID']))
+
+    # extract all the ID and BIC pairs (includes reverse pairings)
+    combo_list = list(itertools.permutations(ids))
+    combo_bic_list = list(itertools.permutations(bics))
+
+    # for each ID/BIC pair a,b, put BICa - BICb in a dictionary
+    for i, combo in enumerate(combo_list):
+        dbic_values['dBIC_' + str(combo[0]) + '_minus_' + str(combo[1])] = combo_bic_list[i][0] - combo_bic_list[i][1]
+    
+    return dbic_values
     
 
 def save_afino_results(results, use_json = False, description = None):
