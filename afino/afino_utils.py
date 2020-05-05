@@ -40,8 +40,21 @@ def model_string_from_id(id):
 
 
 def relative_bics(saveresult):
-    """This convenience function calculates all the relative BIC comparisons
-    from an AFINO save result."""
+    """
+    This convenience function calculates all the relative BIC comparisons
+    from an AFINO save result.
+
+    Parameters
+    ----------
+    saveresult : dict
+        An AFINO save result dictionary. Can be restored from a previous save file
+
+    Returns
+    -------
+    dbic_values : dict
+        A dictionary of relative BIC value comparisons, i.e. BICa - BICb for every a,b pair
+    
+    """
     
     bics = []
     ids = []   
@@ -63,21 +76,34 @@ def relative_bics(saveresult):
     
 
 def save_afino_results(results, use_json = False, description = None):
-    """This function saves the results of an AFINO analysis run to either a JSON file
-    or a Pickle file."""
+    """
+    This function saves the results of an AFINO analysis run to either a JSON file
+    or a Pickle file.
+
+    Parameters
+    ----------
+
+    results : list
+        An AFINO results list, obtained via the model_comparison function
+    use_json : bool, optional
+        If True, use JSON format to save the analysis results. If False, use pickle format
+    description : string, optional
+        An optional descriptor for the result that is incorporated into the filename
+
+    """
     
 
-    #ensure the directory to save plots exists, create it if not.
+    # ensure the directory to save plots exists, create it if not.
     os.makedirs(os.path.expanduser('~/afino_repository/saves/'),exist_ok=True)
     
     analysis_summary = {}
 
-    #almost certainly not pythonic!
+    # This may not be very Pythonic
     for i, r in enumerate(results):
         id = r['ID']
         analysis_summary['m'+str(id)] = r
 
-    #print some info for the user
+    # print some info for the user
     print(' ')
     print('Analysis summary info:')
     print('-----------------------------')
@@ -97,7 +123,7 @@ def save_afino_results(results, use_json = False, description = None):
     print(' ')
         
 
-    #save all the results to a JSON or pickle file
+    # save all the results to a JSON or pickle file
 
     if use_json:
         fname = os.path.join(os.path.expanduser('~/afino_repository/saves/'),'afino_summary_data_' + description + '.json')
