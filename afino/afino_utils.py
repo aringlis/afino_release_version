@@ -85,11 +85,6 @@ def save_afino_results(results, use_json = False, description = None):
 
     return analysis_summary
 
-
-def get_relative_bics(saveresult):
-    """This convenience function returns all the relative BIC comparisons
-       from a previously generated AFINO results file."""
-
         
 
 def restore_json_save_file(fname):
