@@ -53,44 +53,25 @@ def save_afino_results(results, use_json = False, description = None):
     for i, r in enumerate(results):
         analysis_summary['m'+str(i)] = r
 
-    m0 = results[0]
-    m1 = results[1]
-    m2 = results[2]
-    #add extras to dictionary - need to change this
-    dBIC_0v1 = results[0]['BIC'] - results[1]['BIC']
-    dBIC_2v1 = results[2]['BIC'] - results[1]['BIC']
-    dBIC_0v2 = results[0]['BIC'] - results[2]['BIC'] 
-
-    analysis_summary['dBIC'] = dBIC_0v1
-    analysis_summary['dBIC_2v1'] = dBIC_2v1
-    analysis_summary['dBIC_0v2'] = dBIC_0v2
-
     #print some info for the user
+    print(' ')
     print('Analysis summary info:')
     print('-----------------------------')
-    print('Lnlike plaw: ' + str(m0['lnlike']))
-    print('Lnlike gauss: ' + str(m1['lnlike']))
-    print('Lnlike bpow: ' + str(m2['lnlike']))
     print(' ')
-    print('BIC plaw: ' + str(m0['BIC']))
-    print('BIC gauss: ' + str(m1['BIC']))
-    print('BIC bpow: ' + str(m2['BIC']))
+    for i, r in enumerate(results):
+        print('Lnlike m' + str(i) + ' (' + r['model'] + '): ' + str(r['lnlike']))
     print(' ')
-    print('rchi2 plaw: ' + str(m0['rchi2']))
-    print('prob. plaw: ' + str(m0['probability']))
+    for i, r in enumerate(results):
+        print('BIC m' + str(i) + ' (' + r['model'] + '): ' + str(r['BIC']))
     print(' ')
-    print('rchi2 gauss: ' + str(m1['rchi2']))
-    print('prob. gauss: ' + str(m1['probability']))
+    for i, r in enumerate(results):
+        print('rchi2 m' + str(i) + ' (' + r['model'] + '): ' + str(r['rchi2']))
+        print('prob. m' + str(i) + ' (' + r['model'] + '): ' + str(r['probability']))
     print(' ')
-    print('rchi2 bpow: ' + str(m2['rchi2']))
-    print('prob. bpow: ' + str(m2['probability']))
-    print(' ')
-    print('dBIC M0 vs M1: ' + str(dBIC_0v1))
-    print('dBIC M2 vs M1: ' + str(dBIC_2v1))
-    print('dBIC M0 vs M2: ' + str(dBIC_0v2))
     print('-----------------------------')
     print(' ')
     print(' ')
+        
 
     #save all the results to a JSON or pickle file
 
@@ -104,6 +85,7 @@ def save_afino_results(results, use_json = False, description = None):
 
     return analysis_summary
 
+        
 
 def restore_json_save_file(fname):
     """This function restores an AFINO JSON save file and converts
