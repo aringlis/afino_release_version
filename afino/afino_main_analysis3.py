@@ -42,7 +42,7 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
         guess = randomize_initial_guess(model = model)
 
         #try 3 different fitting algorithms to ensure we maximize the likelihood
-        for method in ['L-BFGS-B','TNC','SLSQP']:
+        for method in ['L-BFGS-B','SLSQP']:
             if model == 'pow_const':
                 res = afino_model_fitting.go_plaw(frequencies,iobs,afino_spectral_models.pow_const,guess,method)
                 param_vals = res['x']
