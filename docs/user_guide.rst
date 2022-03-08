@@ -29,6 +29,25 @@ Once the analysis is complete, AFINO will generate a results file (in this examp
 Inspecting Results
 ------------------
 
+We can open a results file using the JSON Python module (or the pickle module if that option was selected.::
+
+  import json
+  result = json.load(open('result = json.load(open(filename,'r'))
+  
+where ``filename`` corresponds to the appropriate save file. We can then inspect the contents of the file.::
+
+  In [2]:  result.keys()
+  Out[2]: dict_keys(['m0', 'm1', 'm2', 'm3'])
+  
+Here we can see that the results file contains a dictionary. Each key 'm0','m1' corresponds to a fit of each chosen model. For example, if only models 0 and 1 were chosen to be fit in the analysis stage, then only keys 'm0' and 'm1' would be present. In this example, models 0, 1, 2, and 3 were all attempted, so their corresponding keys are present.
+
+The results are a nested dictionary, so each key 'm0', 'm1' etc contains its own keys.::
+
+  In [3]: result["m0"].keys()
+  Out[3]: dict_keys(['lnlike', 'model', 'BIC', 'best_fit_power_spectrum', 'frequencies', 'power', 'params', 'rchi2', 'probability', 'ID'])
+  
+we can see that numerous properties of the data and analysis have been saved for future inspection. We summarize these properties below.
+
 
 
 
