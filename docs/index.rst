@@ -15,6 +15,7 @@ scientific tool. Below we provide code reference for the current package.
    :maxdepth: 2
 
    code_ref
+   user_guide
        
 
 Indices and tables
