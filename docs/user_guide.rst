@@ -62,9 +62,12 @@ we can see that numerous properties of the data and analysis have been saved for
 Interpretation
 --------------
 
+To determine which of the fitted models is most appropriate for the data, we compare the Bayesian Information Criterion (BIC) values for each model. The BIC is closely related to the negative log likelihood, and is given by: -2 ln(L) + k ln(n), where L is the maximum likelihood, k is the number of free parameters, and n is the number of data points in the Fourier power spectrum.
 
+The model that best minimizes BIC is considered the best fit to the data. For a model to be considered strongly preferred over other models, we typically require a difference in the BIC value of > 10 compared with other models. If two models have a very similar BIC then we do not have much evidence in favour of one over the other.
 
+**For detecting oscillations**, this means we are looking for one of the models that includes an oscillation (e.g. model 1) to be strongly preferred over the models that do not contain an oscillation (e.g. model 0).
 
-
+**Note**: the BIC values alone provide only a *relative* comparison between the selected models, not an absolute goodness of fit to the data. In other words, *all* of the models may fit poorly. To check this we include the additional parameter rchi2, which is a chi-squared like metric for exponentially distributed data. If the rchi2 value of a model is too large (as estimated via the associated probability value), it should be considered inappropriate for the data. Suggested cutoff values for the probability are p < 0.05 or p < 0.01.
 
 
