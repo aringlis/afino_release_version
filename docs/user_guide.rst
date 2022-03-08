@@ -48,6 +48,19 @@ The results are a nested dictionary, so each key 'm0', 'm1' etc contains its own
   
 we can see that numerous properties of the data and analysis have been saved for future inspection. We summarize these properties below.
 
+* lnlike: The value of the best-fit log-likelihood for this model
+* model: a string descriptor of the model that was fitted to the data
+* BIC: the value of the Bayesian Information Criterion (BIC) for this model fit
+* best_fit_power_spectrum: an array containing the values of the best fit model to the Fourier power spectrum
+* frequencies: an array containing the frequencies for the Fourier power spectrum
+* power: an array containing the Fourier power values
+* params: A list of the best-fit model parameters. These parameters produce the best fit power spectrum.
+* rchi2: The reduced chi-squared value, used to determine if this model is appropriate at all given the data
+* probability: The probability value associated with the rchi2 value.
+* ID: The ID number corresponding to the model used
+
+
+
 
 
 
