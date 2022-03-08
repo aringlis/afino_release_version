@@ -59,6 +59,9 @@ we can see that numerous properties of the data and analysis have been saved for
 * probability: The probability value associated with the rchi2 value.
 * ID: The ID number corresponding to the model used
 
+Interpretation
+--------------
+
 
 
 
