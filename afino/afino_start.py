@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 def analyse_series(times, flux, description=None, low_frequency_cutoff=None, savedir=None, overwrite_gauss_bounds = None,
-                       use_json = True, model_ids = [0,1,2]):
+                       overwrite_extra_gauss_bounds = None, use_json = True, model_ids = [0,1,2]):
     """
     Analyse a single, generic timeseries using the AFINO model comparison code.
     
@@ -41,7 +41,7 @@ def analyse_series(times, flux, description=None, low_frequency_cutoff=None, sav
         description = datetime.datetime.now().strftime('%Y%m%d_%H%M%S') 
    
     analysis_summary=model_comparison(sig_apodized,description=description, low_frequency_cutoff=low_frequency_cutoff,
-                                    overwrite_gauss_bounds = overwrite_gauss_bounds, use_json = use_json,
+                                    overwrite_gauss_bounds = overwrite_gauss_bounds, overwrite_extra_gauss_bounds = overwrite_extra_gauss_bounds, use_json = use_json,
                                     model_ids = model_ids)
  
     
@@ -106,7 +106,7 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
         plt.ylabel('Fourier power',fontsize=12)
         plt.title('Power Spectral Density (PSD) - Model ' + str(analysis_summary[key]['ID']),fontsize=12)
 
-        plt.xlim([1e-5,1e-2])
+        plt.xlim([1e-5,1e2])
         plt.text(2e-5,1e-2,r'$\alpha=%4.2f$' % analysis_summary[key]['params'][1],fontsize=14)
         plt.text(2e-3,1.0,r'$\chi^2=%4.2f$' % analysis_summary[key]['rchi2'],fontsize=14) 
 
@@ -116,7 +116,7 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
         if low_frequency_cutoff:
             plt.axvline(low_frequency_cutoff)
 
-        if analysis_summary[key]['model'] == 'pow_const_gauss':
+        if (analysis_summary[key]['model'] == 'pow_const_gauss') or (analysis_summary[key]['model'] == 'pow_const_2gauss'):
             #work out the 1sig and 2sig upper levels for model m1
             m1_plaw = afino_spectral_models.pow_const(analysis_summary[key]['params'][0:3],analysis_summary[key]['frequencies'])
             m1_quantile_1sig = (-np.log(0.16) * m1_plaw)
@@ -130,11 +130,21 @@ def create_generic_summary_plot(ts, analysis_summary, description, low_frequency
             # display the best-fit period location
             period=1/np.exp(analysis_summary[key]['params'][4])
             plt.axvline(np.exp(analysis_summary[key]['params'][4]),color='red',linestyle='--')
-            plt.text(2e-5,5e-3,r'$f_0=%4.3f$' % np.exp(analysis_summary[key]['params'][4]) + ' Hz = '
+            plt.text(2e-5,1e-3,r'$f_0=%4.3f$' % np.exp(analysis_summary[key]['params'][4]) + ' Hz = '
                 + r'$%4.2f$' % period +' s',fontsize=14)
+
+            if analysis_summary[key]['model'] == 'pow_const_2gauss':
+                period2=1/np.exp(analysis_summary[key]['params'][7])
+                plt.axvline(np.exp(analysis_summary[key]['params'][7]),color='red',linestyle='--')
+                plt.text(2e-5,1e-4,r'$f_1=%4.3f$' % np.exp(analysis_summary[key]['params'][7]) + ' Hz = '
+                + r'$%4.2f$' % period2 +' s',fontsize=14)
             
         if analysis_summary[key]['model'] == 'bpow_const':
-            plt.text(2e-5,5e-3,r'$\alpha_2=%4.2f$' % analysis_summary[key]['params'][3],fontsize=14)
+            plt.text(2e-5,1e-3,r'$\alpha_2=%4.2f$' % analysis_summary[key]['params'][3],fontsize=14)
+
+ 
+            
+            
 
     
 
