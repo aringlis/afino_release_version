@@ -10,7 +10,7 @@ import copy
 from afino import afino_spectral_models
 from afino import afino_model_fitting
 
-def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
+def main_analysis(ts, model='pow_const', low_frequency_cutoff=None, high_frequency_cutoff = None,
                       overwrite_gauss_bounds = None, overwrite_extra_gauss_bounds = None):
 
 
@@ -21,10 +21,20 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
     iobs = ts.PowerSpectrum.Npower 
     this = ([ts.PowerSpectrum.frequencies.positive, iobs],)
     frequencies = ts.PowerSpectrum.frequencies.positive
+    norm_factor = ts.PowerSpectrum.vaughan_std * ts.PowerSpectrum.vaughan_mean
 
-    # if a low frequency cutoff is set, only analyse the spectrum at frequencies above it
-    if low_frequency_cutoff:
-        mask = [frequencies < low_frequency_cutoff]
+    # if a frequency cutoff is set, only analyse the spectrum at relevant frequencies
+    if low_frequency_cutoff and high_frequency_cutoff:
+        mask = [(frequencies > low_frequency_cutoff) & (frequencies < high_frequency_cutoff)]
+        frequencies = frequencies[tuple(mask)]
+        iobs = iobs[tuple(mask)]
+            
+    elif low_frequency_cutoff:
+        mask = [frequencies > low_frequency_cutoff]
+        frequencies = frequencies[tuple(mask)]
+        iobs = iobs[tuple(mask)]
+    elif high_frequency_cutoff:
+        mask = [frequencies < high_frequency_cutoff]
         frequencies = frequencies[tuple(mask)]
         iobs = iobs[tuple(mask)]
     
@@ -36,7 +46,7 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
 
 
     #don't have a good idea of starting guess parameters so randomize these and do multiple trials to cover more parameter space
-    for i in range(0,20):
+    for i in range(0,5):
 
         #get randomized initial guess params to input into fit
         guess = randomize_initial_guess(model = model)
@@ -132,6 +142,7 @@ def main_analysis(ts, model='pow_const', low_frequency_cutoff=None,
     fitresults['params'] = best_fit_params
     fitresults['rchi2'] = rchi2
     fitresults['probability'] = prob
+    fitresults['norm_factor'] = norm_factor
     
     return fitresults
             
